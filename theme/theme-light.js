@@ -6,10 +6,10 @@ const theme = createMuiTheme({
     // fontSize: 20,
   },
   props: {
-    MuiButtonBase: {
-      disableTouchRipple: true,
-      focusRipple: true,
-    },
+    // MuiButtonBase: {
+    //   disableTouchRipple: true,
+    //   focusRipple: true,
+    // },
   },
   shape: {
     borderRadius: "10px",

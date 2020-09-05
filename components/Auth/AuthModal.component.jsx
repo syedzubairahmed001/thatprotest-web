@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { Dialog, Button } from "@material-ui/core";
+import { Dialog, Button, Box, Typography } from "@material-ui/core";
 import Auth from "./Auth.component";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  container: {
+    minHeight: "600px",
+  },
   buttongrp: {
     width: "60%",
     padding: "1rem",
     boxSizing: "border-box",
   },
-});
+  active: {
+    backgroundColor: theme.palette.secondary.main,
+  },
+}));
 
 const AuthModal = (props) => {
   const styles = useStyles();
@@ -28,16 +34,34 @@ const AuthModal = (props) => {
   };
   console.log(userData);
   return (
-    <Dialog open={props.isOpen} onClose={props.onClose} maxWidth="sm" fullWidth>
-      <div className={styles.buttongrp}>
-        <Button onClick={() => setIsSignup(true)}>Signup</Button>
-        <Button onClick={() => setIsSignup(false)}>Login</Button>
-      </div>
-      <Auth
-        isSignup={isSignup}
-        changed={(e) => inputChangedHandler(e)}
-        submitHandler={onSubmitHandler}
-      />
+    <Dialog
+      open={props.isOpen}
+      onClose={props.onClose}
+      maxWidth="sm"
+      fullWidth
+      className={styles.container}
+    >
+      <Box p={2}>
+        <Auth
+          isSignup={isSignup}
+          changed={(e) => inputChangedHandler(e)}
+          submitHandler={onSubmitHandler}
+        />
+      </Box>
+      {/* <div className={styles.buttongrp}>
+        <Button
+          onClick={() => setIsSignup(true)}
+          className={isSignup ? styles.active : ""}
+        >
+          Signup
+        </Button>
+        <Button
+          onClick={() => setIsSignup(false)}
+          className={!isSignup ? styles.active : ""}
+        >
+          Login
+        </Button>
+      </div> */}
     </Dialog>
   );
 };

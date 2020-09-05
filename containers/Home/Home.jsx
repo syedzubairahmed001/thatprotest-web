@@ -15,13 +15,15 @@ const Home = (props) => {
 
   return (
     <Layout>
-      <Button
-        onClick={() => {
-          setAuthOpen(true);
-        }}
-      >
-        hello world
-      </Button>
+      <Box>
+        <Button
+          onClick={() => {
+            setAuthOpen(true);
+          }}
+        >
+          hello world
+        </Button>
+      </Box>
       <Navigation />
       <Header />
       <AuthModal isOpen={authOpen} onClose={onAuthClose} />
