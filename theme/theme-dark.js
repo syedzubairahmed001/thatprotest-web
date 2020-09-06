@@ -15,7 +15,7 @@ const theme = createMuiTheme({
     borderRadius: "10px",
   },
   palette: {
-    type: "light",
+    type: "dark",
     // common: { black: "#000", white: "#fff" },
     // background: {
     //   paper: "#424242",

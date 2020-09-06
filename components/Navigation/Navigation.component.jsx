@@ -7,8 +7,10 @@ import {
   makeStyles,
   Box,
 } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
 
 import AccountPopup from "../AccountPopup/AccountPopup.component";
+import { setAuthModal } from "../../store/actions/global";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -25,6 +27,31 @@ const useStyles = makeStyles((theme) => ({
 
 const Navigation = (props) => {
   const styles = useStyles();
+  const dispatch = useDispatch();
+
+  const authClickHandler = (authType) => {
+    if (authType === "login") {
+      dispatch(
+        setAuthModal({
+          modalOpen: true,
+          modalTitle: "Login",
+          modalDescription:
+            "Login to your existing account to start or join a protest ",
+          isLogin: true,
+        })
+      );
+    } else {
+      dispatch(
+        setAuthModal({
+          modalOpen: true,
+          modalTitle: "Create Account",
+          modalDescription:
+            "Create a new ThatProtest account to start or join a protest",
+          isLogin: false,
+        })
+      );
+    }
+  };
 
   return (
     <AppBar position="static" className={styles.container}>
@@ -34,8 +61,21 @@ const Navigation = (props) => {
         </Box>
         <Typography variant="h6">ThatProtest</Typography>
         <Box className={styles.sec1}></Box>
-        <Button color="inherit">Login</Button>
-        <AccountPopup />
+        <Box mr={1}>
+          <Button
+            color="inherit"
+            color="primary"
+            variant="contained"
+            disableElevation
+            onClick={() => authClickHandler("signup")}
+          >
+            Create Account
+          </Button>
+        </Box>
+        <Button color="inherit" onClick={() => authClickHandler("login")}>
+          Login
+        </Button>
+        {/* <AccountPopup /> */}
       </Toolbar>
     </AppBar>
   );
