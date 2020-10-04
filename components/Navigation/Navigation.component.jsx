@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
 const Navigation = (props) => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(
+    (state) => state.user.auth.isAuthenticated
+  );
 
   const authClickHandler = (authType) => {
     if (authType === "login") {
@@ -61,20 +64,25 @@ const Navigation = (props) => {
         </Box>
         <Typography variant="h6">ThatProtest</Typography>
         <Box className={styles.sec1}></Box>
-        <Box mr={1}>
-          <Button
-            color="inherit"
-            color="primary"
-            variant="contained"
-            disableElevation
-            onClick={() => authClickHandler("signup")}
-          >
-            Create Account
-          </Button>
-        </Box>
-        <Button color="inherit" onClick={() => authClickHandler("login")}>
-          Login
-        </Button>
+        {!isAuthenticated && (
+          <>
+            <Box mr={1}>
+              <Button
+                color="inherit"
+                color="primary"
+                variant="contained"
+                disableElevation
+                onClick={() => authClickHandler("signup")}
+              >
+                Create Account
+              </Button>
+            </Box>
+            <Button color="inherit" onClick={() => authClickHandler("login")}>
+              Login
+            </Button>
+          </>
+        )}
+
         {/* <AccountPopup /> */}
       </Toolbar>
     </AppBar>

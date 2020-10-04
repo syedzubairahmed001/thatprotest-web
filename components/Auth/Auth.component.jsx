@@ -11,6 +11,9 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 
+import Signup from "./Signup/Signup.component";
+import Login from "./Login/Login.component";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "auto",
@@ -49,32 +52,38 @@ function a11yProps(index) {
 
 const Auth = (props) => {
   const styles = useStyles();
+  const [signupForm, setSignupForm] = React.useState({});
+  const [loginForm, setLoginForm] = React.useState({});
   const theme = useTheme();
-  // const [isSignup, setIsSignup] = React.useState(true);
-  // const [value, setValue] = React.useState(0);
   const authStore = useSelector((store) => store.global.auth);
 
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  //   setIsSignup(newValue === 0);
-  // };
+  // const signupHandler = () => {
+  //   const signupFormData = {...signupForm};
+  //   signupFormData.keys().forEach(e => {
+  //     if(e === 'email'){
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
+  //     }
+  //   });
+
+  // };
+  const onSignupInputChange = (e) => {
+    const newForm = { ...form };
+    newForm[e.target.name] = {
+      value: e.target.value,
+      errorMsg: null,
+    };
+    setSignupForm(newForm);
+  };
+  const onLoginInputChange = (e) => {
+    const newForm = { ...form };
+    newForm[e.target.name] = {
+      value: e.target.value,
+      errorMsg: null,
+    };
+    setLoginForm(newForm);
   };
   return (
     <Box className={styles.root} p={2}>
-      {/* <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        variant="fullWidth"
-        aria-label="full width tabs example"
-      >
-        <Tab label="Sign up" {...a11yProps(0)} />
-        <Tab label="Login" {...a11yProps(1)} />
-      </Tabs> */}
       <div>
         <Box mb={0.5}>
           <Typography variant="h5" color="textPrimary" align="center">
@@ -86,60 +95,13 @@ const Auth = (props) => {
             {authStore.modalDescription}
           </Typography>
         </Box>
-        {/* <TabPanel value={value} index={0} dir={theme.direction}> */}
         {authStore.isLogin ? (
           <>
-            <Box mb={1}>
-              <TextField
-                label="Email"
-                fullWidth
-                name="email"
-                variant="outlined"
-                onChange={props.changed}
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                label="Password"
-                name="password"
-                fullWidth
-                variant="outlined"
-                type="password"
-                onChange={props.changed}
-              />
-            </Box>
-            <Typography></Typography>
+            <Login />
           </>
         ) : (
           <>
-            <Box mb={1}>
-              <TextField
-                label="Full Name"
-                name="username"
-                variant="outlined"
-                fullWidth
-                onChange={props.changed}
-              />
-            </Box>
-            <Box mb={1}>
-              <TextField
-                label="Email"
-                fullWidth
-                variant="outlined"
-                name="email"
-                onChange={props.changed}
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                label="Password"
-                name="password"
-                variant="outlined"
-                fullWidth
-                type="password"
-                onChange={props.changed}
-              />
-            </Box>
+            <Signup />
             <Box mb={1}>
               <Typography variant="body2" color="textSecondary" align="center">
                 By clicking on sign up you agree to our{" "}
@@ -149,14 +111,7 @@ const Auth = (props) => {
             </Box>
           </>
         )}
-
-        {/* </TabPanel> */}
-        {/* <TabPanel value={value} index={1} dir={theme.direction}> */}
-
-        {/* </TabPanel> */}
       </div>
-
-      {/* to display Login and signup based on condition */}
       <Button
         onClick={props.submitHandler}
         fullWidth
