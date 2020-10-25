@@ -1,6 +1,16 @@
+import React from 'react';
 import Head from "next/head";
+import { initGA, logPageView } from "../helpers/googleAnalytics";
 
 export default function Home() {
+  React.useEffect(() => {
+      if (!window.GA_INITIALIZED) {
+        initGA();
+        window.GA_INITIALIZED = true;
+        logPageView();
+      }
+    
+  }, [])
   return (
     <div className="container">
       <Head>
