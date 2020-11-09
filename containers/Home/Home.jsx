@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, Button } from "@material-ui/core";
+import { Box, Grid, Button, TextField } from "@material-ui/core";
 
 import Header from "../../components/Header/Header.component";
 import Navigation from "../../components/Navigation/Navigation.component";
@@ -18,6 +18,14 @@ const Home = (props) => {
       <Navigation />
       <Header />
       <AuthModal isOpen={authOpen} onClose={onAuthClose} />
+      <TextField
+        label="Email"
+        fullWidth
+        variant="outlined"
+        name="email"
+        type="email"
+        helperText={"hello world"}
+      />
     </Layout>
   );
 };

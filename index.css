@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-size: 10px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    background-color: #f0f2f5;
+    min-width: 300px;
+  }
+  .dark-bg {
+    background-color: #1d1d1d !important;
+  }
+  html {
+    /* font-size: 62.5%; */
+    transition: all 0.2s;
+  }
+  /* main {
+    margin: 0.5rem;
+    margin-top: 4.5rem;
+    margin-left: 4.5rem;
+    border-radius: 2rem;
+  } */
+  
+  .w-100 {
+    width: 100%;
+  }
+  .text-decoration-none {
+    text-decoration: none;
+  }
+  .p-relative {
+    position: relative;
+  }
+  .text-align--center {
+    text-align: center;
+  }
+  
+  /* over rides */
+  .MuiFilledInput-underline:before {
+    border-color: rgba(0, 0, 0, 0);
+  }
+  
+  .AnimatedPage {
+    width: calc(100% - 5rem);
+  }
+  .ZubstrAppBar {
+    left: 3rem;
+    padding-left: 4rem;
+  }
+  
+  @media only screen and (max-width: 300px) {
+    body {
+      overflow-x: auto;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .ZubstrAppBar {
+      left: 0;
+      padding-right: 0;
+      padding-left: 0;
+    }
+    main {
+      margin: 0;
+      margin-top: 4.5rem;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      border-radius: 2rem;
+    }
+    .AnimatedPage {
+      width: calc(100% - 1rem);
+      margin-bottom: 5rem;
+      padding: 0;
+    }
+  }
+  
+  @keyframes input-helperText-animate {
+    from {
+      opacity: 0;
+      min-height: 0em;
+      line-height: 0em;
+      transform: translateY(-2px);
+    }
+    to {
+      opacity: 1;
+      min-height: 1em;
+      line-height: 1em;
+      transform: translateY(0);
+    }
+  }
+  

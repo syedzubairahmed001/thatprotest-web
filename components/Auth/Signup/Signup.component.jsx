@@ -9,16 +9,19 @@ import {
   useTheme,
 } from "@material-ui/core";
 
-const Signup = (props) => {
+const Signup = ({ onInputChange, form }) => {
   return (
-    <>
+    <Box>
       <Box mb={1}>
         <TextField
           label="Full Name"
-          name="username"
+          name="name"
           variant="outlined"
           fullWidth
-          onChange={props.changed}
+          onChange={onInputChange}
+          value={form.name.value}
+          error={!form.name.isValid}
+          helperText={form.name.msg}
         />
       </Box>
       <Box mb={1}>
@@ -27,7 +30,11 @@ const Signup = (props) => {
           fullWidth
           variant="outlined"
           name="email"
-          onChange={props.changed}
+          type="email"
+          value={form.email.value}
+          onChange={onInputChange}
+          error={!form.email.isValid}
+          helperText={form.email.msg}
         />
       </Box>
       <Box mb={2}>
@@ -37,10 +44,13 @@ const Signup = (props) => {
           variant="outlined"
           fullWidth
           type="password"
-          onChange={props.changed}
+          value={form.password.value}
+          onChange={onInputChange}
+          error={!form.password.isValid}
+          helperText={form.password.msg}
         />
       </Box>
-    </>
+    </Box>
   );
 };
 

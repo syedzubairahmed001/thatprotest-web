@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grow } from "@material-ui/core";
 
+import { setAuthModal } from "../../store/actions/global";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Grow ref={ref} {...props} />;
 });
@@ -12,9 +14,6 @@ import Auth from "./Auth.component";
 import { setAuthModalToggle } from "../../store/actions/global";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    minHeight: "600px",
-  },
   buttongrp: {
     width: "60%",
     padding: "1rem",
@@ -46,21 +45,43 @@ const AuthModal = (props) => {
   const onSubmitHandler = () => {
     // interact with backend
   };
+  const onModalSwitch = (isLogin) => {
+    dispatch(
+      setAuthModal({
+        modalOpen: true,
+        modalTitle: isLogin ? "Login" : "Create Account",
+        modalDescription: isLogin
+          ? "Login to your existing account to start or join a protest"
+          : "Create a new ThatProtest account to start or join a protest",
+        isLogin: isLogin,
+      })
+    );
+  };
   console.log(userData);
   return (
     <Dialog
       open={modalOpen}
       onClose={onCloseHandler}
       maxWidth="sm"
+      scroll="paper"
       fullWidth
       TransitionComponent={Transition}
       className={styles.container}
+      PaperProps={{
+        style: {
+          minHeight: "500px",
+          display: "flex",
+          // justifyContent: "center",
+          // alignItems: "center",
+        },
+      }}
     >
-      <Box p={2}>
+      <Box p={2} width="100%">
         <Auth
           isSignup={isSignup}
           changed={(e) => inputChangedHandler(e)}
           submitHandler={onSubmitHandler}
+          authSwitch={onModalSwitch}
         />
       </Box>
       {/* <div className={styles.buttongrp}>

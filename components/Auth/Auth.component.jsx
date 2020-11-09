@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     color: theme.palette.primary.main,
+    cursor: "pointer",
   },
 }));
 
@@ -52,8 +53,35 @@ function a11yProps(index) {
 
 const Auth = (props) => {
   const styles = useStyles();
-  const [signupForm, setSignupForm] = React.useState({});
-  const [loginForm, setLoginForm] = React.useState({});
+  const [signupForm, setSignupForm] = React.useState({
+    name: {
+      value: "",
+      isValid: true,
+      msg: "",
+    },
+    email: {
+      value: "",
+      isValid: true,
+      msg: "",
+    },
+    password: {
+      value: "",
+      isValid: true,
+      msg: "",
+    },
+  });
+  const [loginForm, setLoginForm] = React.useState({
+    email: {
+      value: "",
+      isValid: true,
+      msg: "",
+    },
+    password: {
+      value: "",
+      isValid: true,
+      msg: "",
+    },
+  });
   const theme = useTheme();
   const authStore = useSelector((store) => store.global.auth);
 
@@ -67,7 +95,7 @@ const Auth = (props) => {
 
   // };
   const onSignupInputChange = (e) => {
-    const newForm = { ...form };
+    const newForm = { ...signupForm };
     newForm[e.target.name] = {
       value: e.target.value,
       errorMsg: null,
@@ -75,12 +103,39 @@ const Auth = (props) => {
     setSignupForm(newForm);
   };
   const onLoginInputChange = (e) => {
-    const newForm = { ...form };
+    const newForm = { ...loginForm };
     newForm[e.target.name] = {
       value: e.target.value,
       errorMsg: null,
     };
     setLoginForm(newForm);
+  };
+
+  const onSignupClick = (e) => {
+    const form = { ...signupForm };
+    const keys = Object.keys(form);
+    keys.forEach((item) => {
+      if (item) {
+        if (!form[item].value || form[item].value === "") {
+          form[item].isValid = false;
+          form[item].msg = `Please enter a valid ${item}`;
+        }
+      }
+    });
+    setSignupForm(form);
+  };
+  const onLoginClick = (e) => {
+    const form = { ...loginForm };
+    const keys = Object.keys(form);
+    keys.forEach((item) => {
+      if (item) {
+        if (!form[item].value || form[item].value === "") {
+          form[item].isValid = false;
+          form[item].msg = `Please enter a valid ${item}`;
+        }
+      }
+    });
+    setLoginForm(form);
   };
   return (
     <Box className={styles.root} p={2}>
@@ -97,11 +152,11 @@ const Auth = (props) => {
         </Box>
         {authStore.isLogin ? (
           <>
-            <Login />
+            <Login onInputChange={onLoginInputChange} form={loginForm} />
           </>
         ) : (
           <>
-            <Signup />
+            <Signup onInputChange={onSignupInputChange} form={signupForm} />
             <Box mb={1}>
               <Typography variant="body2" color="textSecondary" align="center">
                 By clicking on sign up you agree to our{" "}
@@ -113,7 +168,7 @@ const Auth = (props) => {
         )}
       </div>
       <Button
-        onClick={props.submitHandler}
+        onClick={authStore.isLogin ? onLoginClick : onSignupClick}
         fullWidth
         variant="contained"
         color="primary"
@@ -126,12 +181,22 @@ const Auth = (props) => {
           {authStore.isLogin ? (
             <>
               Don't have an account?{" "}
-              <span className={styles.link}>Sign up</span>
+              <span
+                className={styles.link}
+                onClick={() => props.authSwitch(false)}
+              >
+                Sign up
+              </span>
             </>
           ) : (
             <>
               Already have an account?{" "}
-              <span className={styles.link}>Login</span>
+              <span
+                className={styles.link}
+                onClick={() => props.authSwitch(true)}
+              >
+                Login
+              </span>
             </>
           )}
         </Typography>

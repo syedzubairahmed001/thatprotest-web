@@ -7,7 +7,7 @@ import withRedux from "next-redux-wrapper";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-
+import "../index.css";
 import rootReducer from "../store/reducers/index";
 // import "../sass/index.scss";
 
